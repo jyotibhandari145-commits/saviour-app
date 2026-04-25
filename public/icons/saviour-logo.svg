@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Gen Z Gradient Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#4ecdc4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#45b7d1;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd93d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#ffd93d;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#4ecdc4;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#45b7d1;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="neon">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Vibrant Background -->
+  <rect width="512" height="512" fill="url(#bgGradient)" rx="32"/>
+
+  <!-- Sleek Shield with Glow -->
+  <path d="M256 60 L340 100 L340 220 Q340 320 256 360 Q172 320 172 220 L172 100 Z"
+        fill="url(#shieldGradient)" stroke="#ffffff" stroke-width="4" filter="url(#glow)" opacity="0.95"/>
+
+  <!-- Modern Campus Buildings with Trendy Colors -->
+  <g transform="translate(210, 160)">
+    <rect x="0" y="20" width="18" height="38" fill="#ff6b6b" rx="4" filter="url(#neon)"/>
+    <rect x="22" y="15" width="18" height="43" fill="#4ecdc4" rx="4" filter="url(#neon)"/>
+    <rect x="44" y="25" width="18" height="33" fill="#45b7d1" rx="4" filter="url(#neon)"/>
+    <rect x="66" y="18" width="18" height="40" fill="#f093fb" rx="4" filter="url(#neon)"/>
+
+    <!-- Neon Windows -->
+    <rect x="3" y="25" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="11" y="25" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="25" y="20" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="33" y="20" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="47" y="30" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="55" y="30" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="69" y="23" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+    <rect x="77" y="23" width="4" height="6" fill="#ffd93d" rx="1" filter="url(#neon)"/>
+  </g>
+
+  <!-- Trendy Emergency Cross -->
+  <g transform="translate(240, 120)">
+    <rect x="8" y="0" width="8" height="32" fill="#ff6b6b" rx="4" filter="url(#neon)"/>
+    <rect x="0" y="12" width="24" height="8" fill="#ff6b6b" rx="4" filter="url(#neon)"/>
+    <!-- Sparkle effects -->
+    <circle cx="2" cy="2" r="2" fill="#ffd93d" filter="url(#neon)"/>
+    <circle cx="22" cy="2" r="2" fill="#ffd93d" filter="url(#neon)"/>
+    <circle cx="2" cy="30" r="2" fill="#ffd93d" filter="url(#neon)"/>
+    <circle cx="22" cy="30" r="2" fill="#ffd93d" filter="url(#neon)"/>
+  </g>
+
+  <!-- Gen Z Typography -->
+  <text x="256" y="420" text-anchor="middle" fill="url(#textGradient)" font-family="Arial Black, Impact, sans-serif" font-size="36" font-weight="900" letter-spacing="3px" filter="url(#glow)">SAVIOUR</text>
+  <text x="256" y="450" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2px" opacity="0.9">CAMPUS</text>
+
+  <!-- Floating Gen Z Icons -->
+  <g opacity="0.8">
+    <!-- WiFi waves -->
+    <path d="M80 200 Q90 190 100 200 Q90 210 80 200" fill="none" stroke="#4ecdc4" stroke-width="3" filter="url(#neon)"/>
+    <path d="M75 205 Q90 185 105 205 Q90 225 75 205" fill="none" stroke="#4ecdc4" stroke-width="3" filter="url(#neon)"/>
+    <path d="M70 210 Q90 180 110 210 Q90 240 70 210" fill="none" stroke="#4ecdc4" stroke-width="3" filter="url(#neon)"/>
+
+    <!-- GPS location -->
+    <circle cx="420" cy="180" r="10" fill="#ff6b6b" filter="url(#neon)"/>
+    <circle cx="420" cy="180" r="5" fill="#ffffff"/>
+    <circle cx="420" cy="180" r="2" fill="#ff6b6b"/>
+
+    <!-- Camera -->
+    <rect x="70" y="280" width="24" height="18" fill="none" stroke="#f093fb" stroke-width="3" rx="4" filter="url(#neon)"/>
+    <circle cx="80" cy="289" r="5" fill="none" stroke="#f093fb" stroke-width="3" filter="url(#neon)"/>
+    <rect x="86" y="285" width="6" height="8" fill="#f093fb" rx="1" filter="url(#neon)"/>
+
+    <!-- Notification bell -->
+    <path d="M410 300 Q410 295 415 295 Q420 295 420 300 Q420 310 410 320 Q400 310 400 300 Q400 295 405 295 Q410 295 410 300" fill="#ffd93d" filter="url(#neon)"/>
+    <rect x="408" y="320" width="4" height="8" fill="#ffd93d" rx="2" filter="url(#neon)"/>
+  </g>
+
+  <!-- Trendy Decorative Dots -->
+  <circle cx="150" cy="150" r="6" fill="#ffffff" opacity="0.7" filter="url(#neon)"/>
+  <circle cx="362" cy="150" r="6" fill="#ffffff" opacity="0.7" filter="url(#neon)"/>
+  <circle cx="150" cy="362" r="6" fill="#ffffff" opacity="0.7" filter="url(#neon)"/>
+  <circle cx="362" cy="362" r="6" fill="#ffffff" opacity="0.7" filter="url(#neon)"/>
+
+  <!-- Subtle Pulse Animation -->
+  <circle cx="256" cy="256" r="200" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3" class="logo-pulse"/>
+</svg>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="Smart Campus & Infrastructure Management System - Emergency Response & Issue Reporting">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/saviour-logo.svg" type="image/svg+xml">
+    <title>Smart Campus Saviour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="icons/saviour-logo.svg" alt="Smart Campus Saviour" class="app-logo">
+                    <h1>Smart Campus Saviour</h1>
+                    <p>Emergency Response & Infrastructure Management</p>
+                </div>
+                <div class="header-info">
+                    <div class="location-display" id="currentLocationDisplay">📍 Campus</div>
+                    <div class="system-status" id="systemStatus">
+                        <span class="status-indicator online"></span>
+                        <span class="status-text">System Online</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Menu -->
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link" onclick="showTab('dashboard')">📊 Dashboard</a></li>
+                <li><a href="#" class="nav-link" onclick="showTab('report')">🐛 Report Issue</a></li>
+                <li><a href="#" class="nav-link" onclick="showTab('issues')">📋 View Issues</a></li>
+                <li><a href="#" class="nav-link" onclick="showTab('navigation')">🗺️ Navigation</a></li>
+                <li><a href="#" class="nav-link" onclick="showTab('emergency')">🚨 Emergency</a></li>
+                <li><a href="#" class="nav-link" onclick="showTab('logs')">📝 Developer Logs</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- DASHBOARD TAB -->
+            <section id="dashboard" class="tab-content active">
+                <div class="tab-header">
+                    <h2>📊 System Dashboard</h2>
+                    <button class="btn btn-refresh" onclick="refreshDashboard()">Refresh</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Total Issues Reported</h3>
+                        <p class="dashboard-number" id="dashTotalIssues">0</p>
+                        <p class="dashboard-subtitle">incidents across campus</p>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>High Risk Areas</h3>
+                        <p class="dashboard-number danger" id="dashHighRisk">0</p>
+                        <p class="dashboard-subtitle">locations with 5+ issues</p>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>Developer Logs</h3>
+                        <p class="dashboard-number" id="dashLogs">0</p>
+                        <p class="dashboard-subtitle">failure records</p>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>System Status</h3>
+                        <p class="dashboard-status" id="dashEmergency">✅ Normal</p>
+                        <p class="dashboard-subtitle">all systems operational</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>🔴 High-Risk Locations</h3>
+                    <div id="highRiskList" class="risk-list">
+                        <p class="no-data">No high-risk areas at the moment</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3>📊 Issue Categories Breakdown</h3>
+                    <div id="categoryBreakdown" class="category-grid">
+                        <p class="no-data">No issues reported yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPORT ISSUE TAB -->
+            <section id="report" class="tab-content">
+                <div class="tab-header">
+                    <h2>🐛 Report Infrastructure Issue</h2>
+                </div>
+
+                <form class="form-container" id="reportForm" onsubmit="submitReport(event)">
+                    <div class="form-group">
+                        <label for="location">Location *</label>
+                        <input type="text" id="location" name="location" list="locations" placeholder="e.g., GH-1, Block-5, UniMall" required autocomplete="off">
+                        <small>Select from available campus locations</small>
+                        <datalist id="locations">
+                            <!-- Girls Hostels -->
+                            <option value="GH-1 (Girls Hostel)">
+                            <option value="GH-2 (Girls Hostel)">
+                            <option value="GH-3 (Girls Hostel)">
+                            <option value="GH-4 (Girls Hostel)">
+                            <option value="GH-5 (Girls Hostel)">
+                            <option value="GH-6 (Girls Hostel)">
+                            <option value="GH-7 (Girls Hostel)">
+                            <option value="GH-8 (Girls Hostel)">
+                            <option value="GH-9 (Girls Hostel)">
+                            
+                            <!-- Boys Hostels -->
+                            <option value="BH-1 (Boys Hostel)">
+                            <option value="BH-2 (Boys Hostel)">
+                            <option value="BH-3 (Boys Hostel)">
+                            <option value="BH-4 (Boys Hostel)">
+                            <option value="BH-5 (Boys Hostel)">
+                            <option value="BH-6 (Boys Hostel)">
+                            <option value="BH-7 (Boys Hostel)">
+                            <option value="BH-8 (Boys Hostel)">
+                            <option value="BH-9 (Boys Hostel)">
+                            <option value="BH-10 (Boys Hostel)">
+                            
+                            <!-- Academic Blocks 1-73 -->
+                            <option value="Block-1">
+                            <option value="Block-2">
+                            <option value="Block-2A">
+                            <option value="Block-3">
+                            <option value="Block-4">
+                            <option value="Block-5">
+                            <option value="Block-6">
+                            <option value="Block-7">
+                            <option value="Block-8">
+                            <option value="Block-9">
+                            <option value="Block-10">
+                            <option value="Block-11">
+                            <option value="Block-12">
+                            <option value="Block-13">
+                            <option value="Block-14">
+                            <option value="Block-15">
+                            <option value="Block-16">
+                            <option value="Block-17">
+                            <option value="Block-18">
+                            <option value="Block-19">
+                            <option value="Block-20">
+                            <option value="Block-21">
+                            <option value="Block-22">
+                            <option value="Block-23">
+                            <option value="Block-24">
+                            <option value="Block-25">
+                            <option value="Block-26">
+                            <option value="Block-27">
+                            <option value="Block-28">
+                            <option value="Block-29">
+                            <option value="Block-30">
+                            <option value="Block-31">
+                            <option value="Block-32">
+                            <option value="Block-33">
+                            <option value="Block-34">
+                            <option value="Block-35">
+                            <option value="Block-36">
+                            <option value="Block-37">
+                            <option value="Block-38">
+                            <option value="Block-39">
+                            <option value="Block-40">
+                            <option value="Block-41">
+                            <option value="Block-42">
+                            <option value="Block-43">
+                            <option value="Block-44">
+                            <option value="Block-45">
+                            <option value="Block-46">
+                            <option value="Block-47">
+                            <option value="Block-48">
+                            <option value="Block-49">
+                            <option value="Block-50">
+                            <option value="Block-51">
+                            <option value="Block-52">
+                            <option value="Block-53">
+                            <option value="Block-54">
+                            <option value="Block-55">
+                            <option value="Block-56">
+                            <option value="Block-57">
+                            <option value="Block-58">
+                            <option value="Block-59">
+                            <option value="Block-60">
+                            <option value="Block-61">
+                            <option value="Block-62">
+                            <option value="Block-63">
+                            <option value="Block-64">
+                            <option value="Block-65">
+                            <option value="Block-66">
+                            <option value="Block-67">
+                            <option value="Block-68">
+                            <option value="Block-69">
+                            <option value="Block-70">
+                            <option value="Block-71">
+                            <option value="Block-72">
+                            <option value="Block-73">
+                            
+                            <!-- Other Locations -->
+                            <option value="University Hospital">
+                            <option value="Library">
+                            <option value="UniMall">
+                            <option value="Food Courts">
+                            <option value="SDMA (Student Development & Management)">
+                            <option value="Admin Office">
+                            <option value="Sports Complex">
+                            <option value="Auditorium">
+                            <option value="Main Gate">
+                            <option value="Parking Area">
+                        </datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Issue Description *</label>
+                        <textarea id="description" name="description" placeholder="Describe the issue in detail... (e.g., Water leak from ceiling, Broken window, Pothole on road)" required></textarea>
+                        <small>Include keywords like: water, electricity, road, building, waste</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="damageIntensity">Damage Intensity *</label>
+                        <select id="damageIntensity" name="damageIntensity" required>
+                            <option value="">Select severity level</option>
+                            <option value="low">🟢 Low - Minor issue, no immediate danger</option>
+                            <option value="medium">🟡 Medium - Needs attention, potential inconvenience</option>
+                            <option value="high">🟠 High - Serious issue, affects functionality</option>
+                            <option value="critical">🔴 Critical - Emergency situation, immediate action required</option>
+                        </select>
+                        <small>Choose the appropriate severity level for proper prioritization</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueImage">Upload Image (Optional)</label>
+                        <input type="file" id="issueImage" name="issueImage" accept="image/*" capture="environment">
+                        <small>Take a photo of the issue to help maintenance team</small>
+                        <div id="imagePreview" class="image-preview" style="display: none;">
+                            <img id="previewImg" src="" alt="Issue preview">
+                            <button type="button" onclick="removeImage()" class="btn btn-danger btn-sm">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>GPS Location</label>
+                        <div class="gps-controls">
+                            <button type="button" onclick="getCurrentLocation()" class="btn btn-secondary" id="gpsBtn">
+                                📍 Get Current Location
+                            </button>
+                            <div id="gpsStatus" class="gps-status">Location not set</div>
+                        </div>
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
+                        <small>Precise location helps emergency response teams</small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="false-report-warning">
+                            <div class="warning-header">
+                                <span class="warning-icon">⚠️</span>
+                                <strong>Important Warning</strong>
+                            </div>
+                            <p><strong>False reports may result in suspension from the university.</strong> Please ensure your report is accurate and genuine. Emergency services will be dispatched based on your report.</p>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="confirmAccurate" name="confirmAccurate" required>
+                                I confirm that this report is accurate and I understand the consequences of false reporting
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="spinner" id="spinner"></span> Submit Report
+                        </button>
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    </div>
+
+                    <div id="reportMessage" class="alert alert-hidden"></div>
+                </form>
+
+                <div class="info-box">
+                    <h4>💡 Tips for Better Reports:</h4>
+                    <ul>
+                        <li>Be specific about the location (building, floor, room number)</li>
+                        <li>Describe what's broken clearly</li>
+                        <li>Mention category keywords for automatic grouping</li>
+                        <li>All reports are automatically tracked and analyzed</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- VIEW ISSUES TAB -->
+            <section id="issues" class="tab-content">
+                <div class="tab-header">
+                    <h2>📋 View All Reported Issues</h2>
+                    <button class="btn btn-refresh" onclick="loadIssues()">Refresh</button>
+                </div>
+
+                <div class="filter-container">
+                    <label>Filter by Category:</label>
+                    <select id="categoryFilter" onchange="filterIssuesByCategory()">
+                        <option value="">All Categories</option>
+                        <option value="water">Water Issues</option>
+                        <option value="electricity">Electricity Issues</option>
+                        <option value="road">Road Issues</option>
+                        <option value="building">Building Issues</option>
+                        <option value="waste">Waste Management</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div id="issuesContainer" class="issues-container">
+                    <p class="loading">Loading issues...</p>
+                </div>
+            </section>
+
+            <!-- NAVIGATION TAB -->
+            <section id="navigation" class="tab-content">
+                <div class="tab-header">
+                    <h2>🗺️ Campus Navigation</h2>
+                </div>
+
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="fromLocation">From *</label>
+                        <input type="text" id="fromLocation" list="campusLocations" placeholder="e.g., GH-1, Block-5, UniMall" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toLocation">To *</label>
+                        <input type="text" id="toLocation" list="campusLocations" placeholder="e.g., Library, Block-20, Food Courts" required autocomplete="off">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="getNavigation()">Get Directions</button>
+                </div>
+
+                <datalist id="campusLocations">
+                    <!-- Girls Hostels -->
+                    <option value="GH-1 (Girls Hostel)">
+                    <option value="GH-2 (Girls Hostel)">
+                    <option value="GH-3 (Girls Hostel)">
+                    <option value="GH-4 (Girls Hostel)">
+                    <option value="GH-5 (Girls Hostel)">
+                    <option value="GH-6 (Girls Hostel)">
+                    <option value="GH-7 (Girls Hostel)">
+                    <option value="GH-8 (Girls Hostel)">
+                    <option value="GH-9 (Girls Hostel)">
+                    
+                    <!-- Boys Hostels -->
+                    <option value="BH-1 (Boys Hostel)">
+                    <option value="BH-2 (Boys Hostel)">
+                    <option value="BH-3 (Boys Hostel)">
+                    <option value="BH-4 (Boys Hostel)">
+                    <option value="BH-5 (Boys Hostel)">
+                    <option value="BH-6 (Boys Hostel)">
+                    <option value="BH-7 (Boys Hostel)">
+                    <option value="BH-8 (Boys Hostel)">
+                    <option value="BH-9 (Boys Hostel)">
+                    <option value="BH-10 (Boys Hostel)">
+                    
+                    <!-- Academic Blocks 1-73 -->
+                    <option value="Block-1">
+                    <option value="Block-2">
+                    <option value="Block-2A">
+                    <option value="Block-3">
+                    <option value="Block-4">
+                    <option value="Block-5">
+                    <option value="Block-6">
+                    <option value="Block-7">
+                    <option value="Block-8">
+                    <option value="Block-9">
+                    <option value="Block-10">
+                    <option value="Block-11">
+                    <option value="Block-12">
+                    <option value="Block-13">
+                    <option value="Block-14">
+                    <option value="Block-15">
+                    <option value="Block-16">
+                    <option value="Block-17">
+                    <option value="Block-18">
+                    <option value="Block-19">
+                    <option value="Block-20">
+                    <option value="Block-21">
+                    <option value="Block-22">
+                    <option value="Block-23">
+                    <option value="Block-24">
+                    <option value="Block-25">
+                    <option value="Block-26">
+                    <option value="Block-27">
+                    <option value="Block-28">
+                    <option value="Block-29">
+                    <option value="Block-30">
+                    <option value="Block-31">
+                    <option value="Block-32">
+                    <option value="Block-33">
+                    <option value="Block-34">
+                    <option value="Block-35">
+                    <option value="Block-36">
+                    <option value="Block-37">
+                    <option value="Block-38">
+                    <option value="Block-39">
+                    <option value="Block-40">
+                    <option value="Block-41">
+                    <option value="Block-42">
+                    <option value="Block-43">
+                    <option value="Block-44">
+                    <option value="Block-45">
+                    <option value="Block-46">
+                    <option value="Block-47">
+                    <option value="Block-48">
+                    <option value="Block-49">
+                    <option value="Block-50">
+                    <option value="Block-51">
+                    <option value="Block-52">
+                    <option value="Block-53">
+                    <option value="Block-54">
+                    <option value="Block-55">
+                    <option value="Block-56">
+                    <option value="Block-57">
+                    <option value="Block-58">
+                    <option value="Block-59">
+                    <option value="Block-60">
+                    <option value="Block-61">
+                    <option value="Block-62">
+                    <option value="Block-63">
+                    <option value="Block-64">
+                    <option value="Block-65">
+                    <option value="Block-66">
+                    <option value="Block-67">
+                    <option value="Block-68">
+                    <option value="Block-69">
+                    <option value="Block-70">
+                    <option value="Block-71">
+                    <option value="Block-72">
+                    <option value="Block-73">
+                    
+                    <!-- Key Locations -->
+                    <option value="University Hospital">
+                    <option value="Library">
+                    <option value="UniMall">
+                    <option value="Food Courts">
+                    <option value="SDMA (Student Development & Management)">
+                    <option value="Admin Office">
+                    <option value="Main Gate">
+                    <option value="Sports Complex">
+                    <option value="Auditorium">
+                    <option value="Parking Area">
+                </datalist>
+
+                <div id="navigationResult" class="navigation-result"></div>
+
+                <div class="predefined-routes">
+                    <h3>📍 Quick Routes</h3>
+                    <div class="routes-grid">
+                        <div class="route-card" onclick="quickRoute('gh-1-library')">
+                            <h4>🏫 GH-1 to Library</h4>
+                            <p>Academic Route</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('bh-5-unimall')">
+                            <h4>🛍️ BH-5 to UniMall</h4>
+                            <p>Shopping Route</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('block-1-hospital')">
+                            <h4>🏥 Block-1 to Hospital</h4>
+                            <p>Emergency Route</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('food-courts-gh-1')">
+                            <h4>🍽️ Food Courts to GH-1</h4>
+                            <p>Residential Route</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('gh-9-admin')">
+                            <h4>📋 GH-9 to Admin</h4>
+                            <p>Administrative Route</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('library-cafeteria')">
+                            <h4>☕ Library to Cafeteria</h4>
+                            <p>500m • 7 mins</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('office-library')">
+                            <h4>Office to Library</h4>
+                            <p>400m • 6 mins</p>
+                        </div>
+                        <div class="route-card" onclick="quickRoute('entrance-auditorium')">
+                            <h4>Entrance to Auditorium</h4>
+                            <p>600m • 10 mins</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EMERGENCY TAB -->
+            <section id="emergency" class="tab-content">
+                <div class="tab-header">
+                    <h2>🚨 Emergency Simulation & Response</h2>
+                </div>
+
+                <div class="emergency-warning">
+                    <p>⚠️ Use this section to simulate emergency scenarios and test response protocols</p>
+                </div>
+
+                <div class="emergency-buttons">
+                    <button class="btn btn-danger" onclick="triggerEmergency('fire')">
+                        🔥 Simulate Fire Emergency
+                    </button>
+                    <button class="btn btn-warning" onclick="triggerEmergency('network')">
+                        📡 Simulate Network Failure
+                    </button>
+                    <button class="btn btn-success" onclick="resetEmergency()">
+                        ✅ Reset Emergency Mode
+                    </button>
+                </div>
+
+                <div id="emergencyResult" class="emergency-result"></div>
+
+                <div class="emergency-info">
+                    <h3>Emergency Response Information:</h3>
+                    <div class="info-card">
+                        <h4>Fire Emergency Protocol:</h4>
+                        <ul>
+                            <li>Evacuate immediately via nearest exit</li>
+                            <li>Proceed to designated assembly point</li>
+                            <li>Do not use elevators</li>
+                            <li>Report to emergency coordinator</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Network Failure Protocol:</h4>
+                        <ul>
+                            <li>Use hardwired phones for communication</li>
+                            <li>Check physical bulletin boards for updates</li>
+                            <li>Report critical issues via emergency PA system</li>
+                            <li>Proceed to nearest information desk for assistance</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DEVELOPER LOGS TAB -->
+            <section id="logs" class="tab-content">
+                <div class="tab-header">
+                    <h2>📝 Developer Failure Log System</h2>
+                </div>
+
+                <form class="form-container" id="logForm" onsubmit="submitLog(event)">
+                    <div class="form-group">
+                        <label for="whatBroke">What Broke? *</label>
+                        <input type="text" id="whatBroke" name="whatBroke" placeholder="e.g., Login button not responding" required>
+                        <small>Briefly describe what failed</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whyBroke">Why Did It Break? *</label>
+                        <textarea id="whyBroke" name="whyBroke" placeholder="Explain the root cause... (e.g., Database connection timeout, Missing API endpoint)" required></textarea>
+                        <small>Root cause analysis</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="howFixed">How Was It Fixed? *</label>
+                        <textarea id="howFixed" name="howFixed" placeholder="Describe the solution... (e.g., Added timeout handling, Fixed query syntax)" required></textarea>
+                        <small>Solution and implementation details</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="spinner-small"></span> Submit Log
+                        </button>
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    </div>
+
+                    <div id="logMessage" class="alert alert-hidden"></div>
+                </form>
+
+                <div class="logs-section">
+                    <h3>📚 All Failure Logs</h3>
+                    <button class="btn btn-refresh" onclick="loadLogs()">Refresh Logs</button>
+                    <div id="logsContainer" class="logs-container">
+                        <p class="loading">Loading logs...</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Smart Campus & Infrastructure Management System | Built for Hackathon</p>
+            <p>Version 1.0 | Contact: admin@smartcampus.edu</p>
+        </footer>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registered successfully:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', function() {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', function() {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                    })
+                    .catch(function(error) {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        function showUpdateNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'update-notification';
+            notification.innerHTML = `
+                <div class="update-content">
+                    <span>🔄 App update available!</span>
+                    <button onclick="location.reload()" class="btn btn-primary">Update Now</button>
+                </div>
+            `;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 10000);
+        }
+
+        // Request notification permission
+        if ('Notification' in window && navigator.serviceWorker) {
+            Notification.requestPermission().then(function(permission) {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted');
+                }
+            });
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
